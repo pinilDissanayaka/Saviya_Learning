@@ -1,37 +1,25 @@
 from fastapi import FastAPI, HTTPException, status
-from schema.userSchema import User
-from models.userModel import UserModel
-from database.database import localSession
+from schema.user import User
+from models.user import UserModel
+from crud.user import createUser
 from utils.hash import generateHash, verifyHash
 
 app=FastAPI()
 
-session=localSession()
 
-@app.post("/register", tags=['u'])
+@app.post("/register", tags=['User'])
 async def register(user:User):
-    user=user.model_dump()
-    
-    existingUser=session.query(UserModel).filter_by(email=user['email']).first()
-    
-    if existingUser:
-        raise HTTPException(400, detail="Email already registered")
-    else:
-        password=generateHash(rowPassword=user['password'])
-        user.pop('password')
-        user['password']=password
-        newUser=UserModel(**user)
-        session.add(newUser)
-        session.commit()
-        session.refresh(newUser)
-        
+    status=createUser(user=user)
+    if status:
         return {"detail":"user created successfully"}
+    else:
+        raise HTTPException(400, detail="Email already registered")
         
         
           
-@app.get("/login", tags=['g'])
+@app.get("/login", tags=['User'])
 async def addResource(user_name:str, password:str):
-    existingUser=session.query(UserModel).filter(UserModel.user_name==user_name).first()
+    existingUser=True
     
     if existingUser:
         isTrue=verifyHash(rowPassword=password, hashedPassword=existingUser.password)
