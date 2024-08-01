@@ -12,3 +12,4 @@ engine=create_engine(url=DATABASE_URL)
 
 Base=declarative_base()
 
+localSession=sessionmaker(bind=engine, autocommit=False, autoflush=False)

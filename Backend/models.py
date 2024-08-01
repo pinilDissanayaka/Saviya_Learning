@@ -1,4 +1,4 @@
-from database import Base
+from database import Base, localSession, engine
 from sqlalchemy import Column, Integer, String
 
 
