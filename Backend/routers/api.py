@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, status
 from schema.user import User
-from crud.user import createUser
+from crud.user import createUser, getUserByUserName
 from utils.hash import generateHash, verifyHash
 
 app=FastAPI()
@@ -8,8 +8,8 @@ app=FastAPI()
 
 @app.post("/register", tags=['User'])
 async def register(user:User):
-    status=createUser(user=user)
-    if status:
+    _status=createUser(user=user)
+    if _status==201:
         return {"detail":"user created successfully"}
     else:
         raise HTTPException(400, detail="Email already registered")
@@ -18,10 +18,10 @@ async def register(user:User):
           
 @app.get("/login", tags=['User'])
 async def addResource(user_name:str, password:str):
-    existingUser=True
+    _status=getUserByUserName(userName=user_name, rowPassword=password)
     
-    if existingUser:
-        isTrue=verifyHash(rowPassword=password, hashedPassword=existingUser.password)
+    if _status == 200:
+        isTrue=True
         if isTrue:
             return {"detail":"user logging successfully"}
         else:

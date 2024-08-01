@@ -14,7 +14,7 @@ def createUser(user:User)->bool:
     existingUser=session.query(UserModel).filter_by(email=user['email']).first()
     
     if existingUser:
-        return False
+        return 409
     else:
         password=generateHash(rowPassword=user['password'])
         user.pop('password')
@@ -24,4 +24,15 @@ def createUser(user:User)->bool:
         session.commit()
         session.refresh(newUser)
         
-        return True
+        return 201
+    
+def getUserByUserName(userName:str, rowPassword):
+    existingUser=session.query(UserModel).filter(UserModel.user_name==userName).first()
+    if existingUser:
+        isTrue=verifyHash(rowPassword=rowPassword, hashedPassword=existingUser.password)
+        if isTrue:
+            return 200
+        else:
+            return 400
+    else:
+        return 401
