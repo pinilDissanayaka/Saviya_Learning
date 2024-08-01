@@ -1,0 +1,7 @@
+os
+dot
+uvicorn
+fastapi
+sqlalchemy
+dotenv
+hashlib

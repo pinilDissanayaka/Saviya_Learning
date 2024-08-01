@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException, status
 from schema.user import User
-from models.user import UserModel
 from crud.user import createUser
 from utils.hash import generateHash, verifyHash
 
