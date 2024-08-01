@@ -1,10 +1,11 @@
 import os
-from hashlib import sha256
+from passlib.context import CryptContext
+
+passwordContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 def generateHash(rowPassword: str) -> str:
-    hashObject = sha256((rowPassword).encode('utf-8'))  
-    return hashObject.hexdigest()
+    return passwordContext.hash(rowPassword)
 
 def verifyHash(rowPassword: str, hashedPassword: str) -> bool:
-    hashedInput = sha256((rowPassword).encode('utf-8')).hexdigest()
-    return hashedInput[:40] == hashedPassword
+    return passwordContext.verify(rowPassword, hashedPassword)
