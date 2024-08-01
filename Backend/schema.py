@@ -10,3 +10,8 @@ class User(BaseModel):
     user_name: str
     email:EmailStr
     
+    
+class Resource(BaseModel):
+    id: Optional[UUID]=uuid4
+    user_id: UUID
+    

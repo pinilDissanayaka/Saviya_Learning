@@ -11,8 +11,16 @@ session=localSession()
 @app.post("/register")
 async def register(user:User):
     user=user.model_dump()
-    session.add(user)
-    session.commit()
+    
+
+@app.post("/add-resources/{user_id}")
+async def addResource(user_id: int):
+    pass
+    
+
+
+    
+    
     
     
 
