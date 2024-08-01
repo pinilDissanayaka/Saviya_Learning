@@ -1,5 +1,0 @@
-fastapi
-pydantic
-mysql-connector-python
-sqlalchemy 
-dotenv
