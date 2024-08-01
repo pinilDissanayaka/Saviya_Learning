@@ -1,5 +1,5 @@
-from database import Base
-from sqlalchemy import Column, Integer, String
+from database import Base, engine
+from sqlalchemy import Column, Integer, String, DateTime
 
 
 class UserModel(Base):
@@ -8,7 +8,10 @@ class UserModel(Base):
     id=Column(Integer, primary_key=True)
     user_name=Column(String(20))
     email=Column(String(20))
+    password=Column(String(40))
+    created_at=Column(DateTime)
     
+Base.metadata.create_all(engine)
     
     
 
