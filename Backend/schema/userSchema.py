@@ -16,4 +16,3 @@ class User(BaseModel):
 class Resource(BaseModel):
     id: Optional[UUID]=uuid4
     user_id: UUID
-    
