@@ -1,8 +1,8 @@
-from database import Base, localSession, engine
+from database import Base
 from sqlalchemy import Column, Integer, String
 
 
-class User(Base):
+class UserModel(Base):
     __tablename__='user'
     
     id=Column(Integer, primary_key=True)
