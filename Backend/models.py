@@ -9,6 +9,8 @@ class UserModel(Base):
     user_name=Column(String(20))
     email=Column(String(20))
     
+    
+    
 
     
     
