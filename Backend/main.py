@@ -2,8 +2,7 @@ from fastapi import FastAPI, HTTPException, status
 from schema import User
 from models import UserModel
 from database import localSession
-from passlib.hash import pbkdf2_sha512
-
+from utils.hash import generateHash, verifyHash
 
 app=FastAPI()
 
@@ -18,7 +17,7 @@ async def register(user:User):
     if existingUser:
         raise HTTPException(400, detail="Email already registered")
     else:
-        password=pbkdf2_sha512.hash(user['password'])
+        password=generateHash(rowPassword=user['password'])
         user.pop('password')
         user['password']=password
         newUser=UserModel(**user)
@@ -30,9 +29,22 @@ async def register(user:User):
         
         
           
-@app.post("/add-resources/{user_id}")
-async def addResource(user_id: int):
-    pass
+@app.get("/login")
+async def addResource(user_name:str, password:str):
+    existingUser=session.query(UserModel).filter(UserModel.user_name==user_name).first()
+    
+    if existingUser:
+        isTrue=verifyHash(rowPassword=password, hashedPassword=existingUser.password)
+        if isTrue:
+            return {"detail":"user logging successfully"}
+        else:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                                detail="Bad request")
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Incorrect email")
+    
+    
     
 
 

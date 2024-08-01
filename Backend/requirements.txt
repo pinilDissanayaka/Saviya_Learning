@@ -3,4 +3,3 @@ pydantic
 mysql-connector-python
 sqlalchemy 
 dotenv
-passlib
