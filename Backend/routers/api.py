@@ -21,12 +21,10 @@ async def addResource(user_name:str, password:str):
     _status=getUserByUserName(userName=user_name, rowPassword=password)
     
     if _status == 200:
-        isTrue=True
-        if isTrue:
-            return {"detail":"user logging successfully"}
-        else:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                                detail="Bad request")
+        return {"detail":"user logging successfully"}
+    elif _status == 400:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="Bad request")
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="Incorrect email")
