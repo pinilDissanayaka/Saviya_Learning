@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, UploadFile
 from schema.user import User
 from crud.user import createUser, getUserByUserName
-from utils.hash import generateHash, verifyHash
+from utils.resource import saveResourceAtDirectory
 
 app=FastAPI()
 
@@ -28,3 +28,16 @@ async def addResource(user_name:str, password:str):
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                             detail="Incorrect email")
+        
+        
+@app.post("/upload-resource", tags=['User'])
+async def uploadResource(resources:list[UploadFile]):
+    try:
+        saveResourceAtDirectory(resources=resources)
+        return {"detail" : "done"}
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+                            detail=e.args)
+        
+        
+            

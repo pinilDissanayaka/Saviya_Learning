@@ -1,29 +1,17 @@
 import os
-from dotenv import load_dotenv
-from pinecone import ServerlessSpec, Pinecone
 
-load_dotenv()
 
-os.environ['PINECONE_API_KEY']=os.getenv('PINECONE_API_KEY')
-
-class Resource(object):
-    def __init__(self) -> None:
-        self.pinecone=Pinecone()
-        self.dimension=256
-    
-    
-    def createIndex(self, indexName:str)->None:
-        self.pinecone.create_index(
-            name=indexName,
-            dimension=self.dimension,
-            metric="cosine",
-            spec=ServerlessSpec(
-                cloud="aws",
-                region="us-east-1"
-            )
-        )
-    
-    def deleteIndex(self, indexName:str)->None:
-        self.pinecone.delete_index(name=indexName)
-    
+def saveResourceAtDirectory(resources:list):
+    try:
+        for resource in resources:
+            path=f"Temp/{resource.name}"
+            with open(path, "wb") as file:
+                file.write(resource.file.read())
+    except Exception as e:
+        print(e)
+        
+        
+def saveResourceToDatabase(resources:list):
+    pass
+                    
         
