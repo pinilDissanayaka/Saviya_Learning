@@ -8,5 +8,5 @@ class UserModel(Base):
     id=Column(Integer, primary_key=True, index=True)
     user_name=Column(String(20), unique=True)
     email=Column(String(20))
-    password=Column(String(40))
+    password=Column(String(100))
     created_at=Column(DateTime)

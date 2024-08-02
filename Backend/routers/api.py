@@ -16,7 +16,7 @@ async def register(user:User):
         
         
           
-@app.get("/login", tags=['User'])
+@app.get("/login", tags=['User', 'Admin'])
 async def addResource(user_name:str, password:str):
     _status=getUserByUserName(userName=user_name, rowPassword=password)
     
