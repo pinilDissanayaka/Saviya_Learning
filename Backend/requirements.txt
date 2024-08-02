@@ -1,7 +1,13 @@
-os
-dot
 uvicorn
 fastapi
 sqlalchemy
 dotenv
 passlib
+langchain
+langchain_community
+pinecone
+langchain_core
+unstructured
+langchain-chroma
+langchain_groq
+rank_bm25
