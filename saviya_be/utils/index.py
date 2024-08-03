@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pinecone import ServerlessSpec, Pinecone
+import logging
 
 load_dotenv()
 
@@ -13,17 +14,23 @@ class Index(object):
     
     
     def createIndex(self, indexName:str)->None:
-        self.pinecone.create_index(
-            name=indexName,
-            dimension=self.dimension,
-            metric="cosine",
-            spec=ServerlessSpec(
-                cloud="aws",
-                region="us-east-1"
+        try:
+            self.pinecone.create_index(
+                name=indexName,
+                dimension=self.dimension,
+                metric="cosine",
+                spec=ServerlessSpec(
+                    cloud="aws",
+                    region="us-east-1"
+                )
             )
-        )
+        except Exception as e:
+            logging.exception(e)
     
     def deleteIndex(self, indexName:str)->None:
-        self.pinecone.delete_index(name=indexName)
+        try:
+            self.pinecone.delete_index(name=indexName)
+        except Exception as e:
+            logging.exception(e)
     
         
