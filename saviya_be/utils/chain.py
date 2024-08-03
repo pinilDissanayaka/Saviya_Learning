@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from langchain_groq.chat_models import ChatGroq
 from langchain.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough, RunnableLambda
+from langchain_core.output_parsers import StrOutputParser
 
 
 load_dotenv()
