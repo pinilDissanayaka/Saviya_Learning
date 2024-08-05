@@ -10,6 +10,8 @@ load_dotenv()
 
 os.environ['GROQ_API_KEY']=os.getenv('GROQ_API_KEY')
 os.environ['LANGCHAIN_API_KEY']=os.getenv('LANGCHAIN_API_KEY')
+os.environ['LANGCHAIN_PROJECT']=os.getenv('LANGCHAIN_PROJECT')
+os.environ['LANGCHAIN_TRACING_V2']=os.getenv('LANGCHAIN_TRACING_V2')
 
 class Chain(object):
     def __init__(self) -> None:
@@ -17,7 +19,7 @@ class Chain(object):
                           temperature=0.7)
         
         
-    def getChain(question:str):
+    def getChain(question:str)->str:
         template = """Given the following context and a question, generate an answer based on this context only.
                             In the answer try to provide as much text as possible from "response" section in the source document context without making much changes.
                             If the answer is not found in the context, kindly state "I don't know." Don't try to make up an answer.
