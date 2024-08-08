@@ -17,7 +17,7 @@ async def register(user:User):
         
           
 @app.get("/login", tags=['User', 'Admin'])
-async def addResource(user_name:str, password:str):
+async def login(user_name:str, password:str):
     _status=getUserByUserName(userName=user_name, rowPassword=password)
     
     if _status == 200:
@@ -38,6 +38,8 @@ async def uploadResource(resources:list[UploadFile]):
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
                             detail=e.args)
+        
+
         
         
             
