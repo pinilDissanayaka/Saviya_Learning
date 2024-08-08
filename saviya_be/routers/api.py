@@ -5,7 +5,6 @@ from utils.resource import saveResourceAtDirectory
 
 app=FastAPI()
 
-
 @app.post("/register", tags=['User'])
 async def register(user:User):
     _status=createUser(user=user)
@@ -16,7 +15,7 @@ async def register(user:User):
         
         
           
-@app.get("/login", tags=['User', 'Admin'])
+@app.post("/login", tags=['User', 'Admin'])
 async def login(user_name:str, password:str):
     _status=getUserByUserName(userName=user_name, rowPassword=password)
     
